@@ -16,4 +16,13 @@
 </hr>
 <h2><b>Catatan Penting : </b></h2>
 1. Gunakan script ini dengan bijak ! </br>
-2. Tidak semua terkonfigurasi oleh script ini, diantaranya adalah tampilan login hostpot
+2. Tidak semua terkonfigurasi oleh script ini, diantaranya adalah tampilan login hostpot.
+</br>
+<h2><b>Cara penggunaanya : </b></h2>
+1. <b>Login ke RouterOS</b> : Masuk ke MikroTik Router melalui Winbox, WebFig, atau terminal.</br>
+2. Buka Menu Script : Pada Winbox/WebFig, navigasi ke menu <b>System > Scripts.</b></br>
+3. <b>Buat Script Baru</b> :
+    - Klik + untuk membuat script baru.
+    - Masukkan nama script dan kode script yang ingin dijalankan di dalam kotak "Source".
+4. <b>Simpan Script </b>:
+Klik <b>Apply, OK</b> setelah script selesai dimasukkan.
