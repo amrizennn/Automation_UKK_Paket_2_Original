@@ -25,5 +25,5 @@
     - Klik + untuk membuat script baru.</br>
     - Masukkan nama script dan kode script (=yang kalian copy dari script RouterBoard-1.txt/RouterBoard-2.txt) yang ingin dijalankan di dalam kotak "Source".</br>
 4. <b>Simpan Script </b>:
-Klik <b>Apply, OK</b> setelah script selesai dimasukkan.
+Klik <b>Apply, OK</b> setelah script selesai dimasukkan.</br>
 5. <b>Running Script </b>: Klik kanan dan pilih <b>Run</b> untuk menjalankan script tersebut.
