@@ -20,9 +20,10 @@
 </br>
 <h2><b>Cara penggunaanya : </b></h2>
 1. <b>Login ke RouterOS</b> : Masuk ke MikroTik Router melalui Winbox, WebFig, atau terminal.</br>
-2. Buka Menu Script : Pada Winbox/WebFig, navigasi ke menu <b>System > Scripts.</b></br>
-3. <b>Buat Script Baru</b> :
-    - Klik + untuk membuat script baru.
-    - Masukkan nama script dan kode script yang ingin dijalankan di dalam kotak "Source".
+2. <b>Buka Menu Script</b> : Pada Winbox/WebFig, navigasi ke menu <b>System > Scripts.</b></br>
+3. <b>Buat Script Baru</b> :</br>
+    - Klik + untuk membuat script baru.</br>
+    - Masukkan nama script dan kode script (=yang kalian copy dari script RouterBoard-1.txt/RouterBoard-2.txt) yang ingin dijalankan di dalam kotak "Source".</br>
 4. <b>Simpan Script </b>:
 Klik <b>Apply, OK</b> setelah script selesai dimasukkan.
+5. <b>Running Script </b>: Klik kanan dan pilih <b>Run</b> untuk menjalankan script tersebut.
