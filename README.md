@@ -15,4 +15,5 @@
 </body>
 </hr>
 <h2><b>Catatan Penting : </b></h2>
-Gunakan script ini dengan bijak !
+1. Gunakan script ini dengan bijak ! </br>
+2. Tidak semua terkonfigurasi oleh script ini, diantaranya adalah tampilan login hostpot
