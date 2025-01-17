@@ -1,0 +1,97 @@
+#################################################################################
+#                                                                               #
+#               SCRIPT MIKROTIK - AUTOMATION UKK PAKET-2 (ORIGINAL)             #
+#                                                                               #
+#################################################################################
+
+           ############################################################
+           ##       CREATED BY : MUHAMMAD AMRI ZEN (w3intr0)         ##
+           ##     SISWA 12 TKJ 1 - SMK NEGERI 1 SIMPANG PEMATANG     ##
+           ############################################################
+
+
+###################################################
+#         BASIC CONFIGURATION MIKROTIK            #
+###################################################
+#Setting identity dari RouterBoard - MikroTik
+/system identity set name="Nama-Siswa"
+
+###################################################
+# Create DHCP-Client for ether1
+/ip dhcp-client add interface=ether1 disabled=no
+
+####################################################
+# Enable Allow Remote Requests in DNS
+/ip dns set allow-remote-requests=yes
+
+####################################################
+# Add NAT Rules for Masquerade
+/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade
+
+
+###################################################
+#           WLAN CONFIGURATION MIKROTIK           #
+###################################################
+# Create & enable wlan1
+/interface wireless enable wlan1
+/interface wireless set wlan1 ssid="UKK-NO_ABSEN" mode=ap-bridge band=2ghz-b/g/n frequency=2462 frequency-mode=superchannel country=indonesia installation=indoor
+/interface wireless security-profiles set [find default=yes] mode=dynamic-keys authentication-types=wpa2-psk wpa2-pre-shared-key="password123"
+
+###################################################
+# Create IP address for wlan1
+/ip address add address=192.168.20.1/24 interface=wlan1
+/ip pool add name=dhcp_pool_wlan ranges=192.168.20.10-192.168.20.50
+/ip dhcp-server add name=dhcp_wlan interface=wlan1 address-pool=dhcp_pool_wlan lease-time=10m
+/ip dhcp-server network add address=192.168.20.0/24 gateway=192.168.20.1 dns-server=8.8.8.8,8.8.4.4
+/ip dhcp-server enable [find name=dhcp_wlan]
+
+
+###################################################
+#             HOTSPOT SETUP MIKROTIK              #
+###################################################
+# Add Hotspot for wlan1
+/ip hotspot profile set [find default=yes] dns-name=portalsmk.sch.id
+
+###################################################
+# Add user profile Hotspot
+/ip hotspot user profile add name=kepalasekolah rate-limit=512k/512k
+/ip hotspot user profile add name=guru rate-limit=256k/256k
+/ip hotspot user profile add name=siswa rate-limit=128k/128k
+
+###################################################
+# Add pool-ip for Hotspot
+/ip hotspot add name=hotspot1 interface=wlan1 address-pool=dhcp_pool_wlan profile=default
+/ip hotspot network add address=192.168.20.0/24 gateway=192.168.20.1 dns-server=8.8.8.8,8.8.4.4
+
+###################################################
+# Add client-user
+/ip hotspot user add name=kepalasekolah password=123 profile=kepalasekolah shared-users=5
+/ip hotspot user add name=Guru password=456 profile=guru shared-users=5
+/ip hotspot user add name=Siswa password=789 profile=siswa shared-users=5
+
+
+###################################################
+#           VLAN CONFIGURATION MIKROTIK           #
+###################################################
+# Creat VLAN on Interfaces-ether2
+/interface vlan add name=VLAN-Siswa vlan-id=10 interface=ether2
+/interface vlan add name=VLAN-Guru vlan-id=20 interface=ether2
+
+###################################################
+# Creat IP address for VLAN
+/ip address add address=192.168.40.1/24 interface=VLAN-Siswa
+/ip address add address=192.168.60.1/24 interface=VLAN-Guru
+
+###################################################
+# VLAN-Siswa
+/ip pool add name=dhcp_pool_vlan10 ranges=192.168.40.10-192.168.40.50
+/ip dhcp-server add name=dhcp_vlan10 interface=VLAN-Siswa address-pool=dhcp_pool_vlan10 lease-time=10m
+/ip dhcp-server network add address=192.168.40.0/24 gateway=192.168.40.1 dns-server=8.8.8.8,8.8.4.4
+
+###################################################
+# VLAN-Guru
+/ip pool add name=dhcp_pool_vlan20 ranges=192.168.60.10-192.168.60.50
+/ip dhcp-server add name=dhcp_vlan20 interface=VLAN-Guru address-pool=dhcp_pool_vlan20 lease-time=10m
+/ip dhcp-server network add address=192.168.60.0/24 gateway=192.168.60.1 dns-server=8.8.8.8,8.8.4.4
+
+
