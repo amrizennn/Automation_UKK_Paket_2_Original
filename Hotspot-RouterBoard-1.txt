@@ -1,0 +1,35 @@
+#################################################################################
+#                                                                               #
+#               SCRIPT MIKROTIK - AUTOMATION UKK PAKET-2 (ORIGINAL)             #
+#                                                                               #
+#################################################################################
+
+           ############################################################
+           ##       CREATED BY : MUHAMMAD AMRI ZEN (w3intr0)         ##
+           ##     SISWA 12 TKJ 1 - SMK NEGERI 1 SIMPANG PEMATANG     ##
+           ############################################################
+
+###################################################
+#             HOTSPOT SETUP MIKROTIK              #
+###################################################
+# Pastekan dulu command di Terminal Winbox
+/ip hotspot setup
+# Add Hotspot for wlan1
+/ip hotspot profile set [find default=yes] dns-name=portalsmk.sch.id
+
+###################################################
+# Add user profile Hotspot
+/ip hotspot user profile add name=kepalasekolah rate-limit=512k/512k
+/ip hotspot user profile add name=guru rate-limit=256k/256k
+/ip hotspot user profile add name=siswa rate-limit=128k/128k
+
+###################################################
+# Add pool-ip for Hotspot
+/ip hotspot add name=hotspot1 interface=wlan1 address-pool=dhcp_pool_wlan profile=default
+/ip hotspot network add address=192.168.20.0/24 gateway=192.168.20.1 dns-server=8.8.8.8,8.8.4.4
+
+###################################################
+# Add client-user
+/ip hotspot user add name=kepalasekolah password=123 profile=kepalasekolah shared-users=5
+/ip hotspot user add name=Guru password=456 profile=guru shared-users=5
+/ip hotspot user add name=Siswa password=789 profile=siswa shared-users=5
