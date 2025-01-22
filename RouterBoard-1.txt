@@ -47,30 +47,6 @@
 
 
 ###################################################
-#             HOTSPOT SETUP MIKROTIK              #
-###################################################
-# Add Hotspot for wlan1
-/ip hotspot profile set [find default=yes] dns-name=portalsmk.sch.id
-
-###################################################
-# Add user profile Hotspot
-/ip hotspot user profile add name=kepalasekolah rate-limit=512k/512k
-/ip hotspot user profile add name=guru rate-limit=256k/256k
-/ip hotspot user profile add name=siswa rate-limit=128k/128k
-
-###################################################
-# Add pool-ip for Hotspot
-/ip hotspot add name=hotspot1 interface=wlan1 address-pool=dhcp_pool_wlan profile=default
-/ip hotspot network add address=192.168.20.0/24 gateway=192.168.20.1 dns-server=8.8.8.8,8.8.4.4
-
-###################################################
-# Add client-user
-/ip hotspot user add name=kepalasekolah password=123 profile=kepalasekolah shared-users=5
-/ip hotspot user add name=Guru password=456 profile=guru shared-users=5
-/ip hotspot user add name=Siswa password=789 profile=siswa shared-users=5
-
-
-###################################################
 #           VLAN CONFIGURATION MIKROTIK           #
 ###################################################
 # Creat VLAN on Interfaces-ether2
@@ -87,11 +63,13 @@
 /ip pool add name=dhcp_pool_vlan10 ranges=192.168.40.10-192.168.40.50
 /ip dhcp-server add name=dhcp_vlan10 interface=VLAN-Siswa address-pool=dhcp_pool_vlan10 lease-time=10m
 /ip dhcp-server network add address=192.168.40.0/24 gateway=192.168.40.1 dns-server=8.8.8.8,8.8.4.4
+/ip dhcp-server enable [find name=dhcp_vlan10]
 
 ###################################################
 # VLAN-Guru
 /ip pool add name=dhcp_pool_vlan20 ranges=192.168.60.10-192.168.60.50
 /ip dhcp-server add name=dhcp_vlan20 interface=VLAN-Guru address-pool=dhcp_pool_vlan20 lease-time=10m
 /ip dhcp-server network add address=192.168.60.0/24 gateway=192.168.60.1 dns-server=8.8.8.8,8.8.4.4
+/ip dhcp-server enable [find name=dhcp_vlan20]
 
 
